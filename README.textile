@@ -1,0 +1,31 @@
+h1. Roxy (A ruby proxy library)
+
+h2. Summary
+
+Roxy is a basic proxy library that lets you quickly create proxies between your ruby objects.  Its syntax
+is loosely based on "Association Extensions in ActiveRecord":http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html
+as that is a well-known use of proxies.
+
+Please see the "CHANGELOG":http://github.com/yfactorial/utility_scopes/tree/master/CHANGELOG for contribution details. 
+
+Roxy has the following dependencies:
+
+* rspec >= 1.1.4 (for specs only, not runtime)
+
+h2. Installation
+
+To install the roxy gem run the following:
+
+  sudo gem install yfactorial-roxy
+  
+And to enable the scopes in your project just require the @roxy@ library and give your object some moxie:
+
+  require 'roxy'
+  class Person
+    include Roxy::Moxie
+    ...
+  end
+  
+h2. Usage
+
+TODO: Coming shortly....
