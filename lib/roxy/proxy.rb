@@ -10,29 +10,25 @@ module Roxy
     # Make sure the proxy is as dumb as it can be.
     # Blatanly taken from Jim Wierich's BlankSlate post:
     # http://onestepback.org/index.cgi/Tech/Ruby/BlankSlate.rdoc
-    instance_methods.each { |m| undef_method m unless m =~ /^__|proxy_instance_eval|proxy_extend/ }
-    
-    # Each proxy has a reference to the object that contains the proxy
-    # (the owner) and the object that it is proxying to (the target).
-    attr_accessor :owner, :target
+    instance_methods.each { |m| undef_method m unless m =~ /(^__|^proxy_)/ }
     
     def initialize(owner, options, &block)
       @owner = owner
-      @target = options[:to]
+      @target = options[:to]      
       
-      # Adorn with proxy methods
+      # Adorn with user-provided proxy methods
       [options[:extend]].flatten.each { |ext| proxy_extend(ext) } if options[:extend]
-      proxy_instance_eval &block if block_given?
+      proxy_instance_eval &block if block_given?      
     end
-    
+      
+    def proxy_owner; @owner; end
+    def proxy_target
+      @proxy_target_object ||= @target.is_a?(Proc) ? @target.call(@owner) : @target
+    end
+  
     # Delegate all method calls we don't know about to target object
     def method_missing(sym, *args, &block)
-      target.__send__(sym, *args, &block)
-    end
-    
-    # Lazily instantiate/resolve the target object
-    def target
-      @target_object ||= @target.is_a?(Proc) ? @target.call : @target
+      proxy_target.__send__(sym, *args, &block)
     end
   end
 end

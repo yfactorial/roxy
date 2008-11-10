@@ -11,8 +11,12 @@ describe "Roxy" do
     @person.children.should == ['child1', 'child2']
   end
   
-  it "should return the evaluated target if the target is a proc" do
+  it "should return the evaluated target if the target is an existing method" do
     @person.parents.should == ['parent1', 'parent2']
+  end
+  
+  it "should return the evaluated target if the target is a proc" do
+    @person.neighbors.should == ['neighbor1', 'neighbor2']
   end
   
   it "should pass method invocations through to the target" do
@@ -21,6 +25,7 @@ describe "Roxy" do
   
   it "should intercept block-based proxy methods" do
     @person.children.cost.should == 200
+    @person.parents.divorced?.should be_false
   end
   
   it "should intercept :extend based proxy methods" do

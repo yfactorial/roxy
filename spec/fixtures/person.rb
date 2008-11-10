@@ -4,11 +4,19 @@ class Person
   
   proxy :children, :to => ['child1', 'child2'] do
     def cost
-      100 * target.size
+      100 * proxy_target.size
     end
   end
   
-  proxy :parents, :to => lambda { ['parent1', 'parent2'] }
+  def parents
+    ['parent1', 'parent2']
+  end
+  
+  proxy :parents do
+    def divorced?
+      proxy_target.size < 2
+    end
+  end
   
   module NeighborGeographics
     def nearby?; true; end
