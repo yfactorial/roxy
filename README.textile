@@ -28,7 +28,7 @@ And to enable the scopes in your project just require the @roxy@ library and giv
   
 h2. Usage
 
-See the announcement post at for detailed usage examples: 
+See the announcement post for detailed usage examples: 
 
 Here's a basic example:
 

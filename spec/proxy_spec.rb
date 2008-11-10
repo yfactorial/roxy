@@ -21,7 +21,7 @@ describe "Proxy" do
   end
   
   it "should make the proxy owner accessible to the target block" do
-    proxy = Roxy::Proxy.new(@owner, :to => lambda { |owner| owner })
+    proxy = Roxy::Proxy.new(@owner, :to => proc { |owner| owner })
     proxy.should == @owner
   end
     
