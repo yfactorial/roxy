@@ -32,18 +32,18 @@ See the announcement post at for detailed usage examples:
 
 Here's a basic example:
 
-  require 'roxy'
-  class Person
-    include Roxy::Moxie
-    
-    attr_accessor :first, :last, :parents
-    
-    proxy :parents do
-      def divorced?
-        proxy_target.size > 1 and proxy_target.collect { |parent| parent.last }.uniq.size > 1
+    require 'roxy'
+    class Person
+      include Roxy::Moxie    
+      
+      attr_accessor :first, :last, :parents 
+         
+      proxy :parents do
+        def divorced?
+          proxy_target.size > 1 and proxy_target.collect { |parent| parent.last }.uniq.size > 1
+        end
       end
     end
-  end
   
-  # Can then invoke your proxy methods directly on parents
-  person.parents.divorced?
+    # Can then invoke your proxy methods directly on parents
+    person.parents.divorced?
