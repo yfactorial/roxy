@@ -28,7 +28,7 @@ And to enable the scopes in your project just require the @roxy@ library and giv
   
 h2. Usage
 
-See the announcement post for detailed usage examples: http://ryandaigle.com/articles/2008/11/10/implement-ruby-proxy-objects-with-roxy
+See the announcement post for detailed usage examples: "http://ryandaigle.com/articles/2008/11/10/implement-ruby-proxy-objects-with-roxy":http://ryandaigle.com/articles/2008/11/10/implement-ruby-proxy-objects-with-roxy
 
 Here's a basic example:
 
