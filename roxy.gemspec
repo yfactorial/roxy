@@ -16,5 +16,5 @@ Gem::Specification.new do |s|
   s.rdoc_options << '--inline-source' << '--charset=UTF-8'
   s.extra_rdoc_files = ['README.textile', 'Rakefile', 'LICENSE', 'CHANGELOG']
   
-  s.files = %w(README.textile Rakefile LICENSE CHANGELOG init.rb lib lib/roxy lib/roxy.rb lib/roxy/moxie.rb lib/roxy/proxy.rb spec spec/abstract_spec.rb spec/proxy_spec.rb spec/roxy_spec.rb spec/family_spec.rb spec/fixtures spec/fixtures/person.rbspec/fixtures/family.rb)
+  s.files = %w(README.textile Rakefile LICENSE CHANGELOG init.rb lib lib/roxy lib/roxy.rb lib/roxy/moxie.rb lib/roxy/proxy.rb spec spec/abstract_spec.rb spec/proxy_spec.rb spec/roxy_spec.rb spec/family_spec.rb spec/fixtures spec/fixtures/person.rb spec/fixtures/family.rb)
 end
