@@ -32,7 +32,7 @@ See the announcement post at for detailed usage examples:
 
 Here's a basic example:
 
-<code>
+<pre><code>
   require 'roxy'
   class Person
     include Roxy::Moxie    
@@ -48,4 +48,4 @@ Here's a basic example:
 
   # Can then invoke your proxy methods directly on parents
   person.parents.divorced?
-</code>
+</code></pre>
