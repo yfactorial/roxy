@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   
   s.name     = "roxy"
-  s.version  = "0.1.1"
+  s.version  = "0.1.2"
   s.date     = "2008-11-11"
   
   s.summary  = "A Ruby library for quickly creating proxy objects."
