@@ -12,9 +12,10 @@ module Roxy
     # http://onestepback.org/index.cgi/Tech/Ruby/BlankSlate.rdoc
     instance_methods.each { |m| undef_method m unless m =~ /(^__|^proxy_)/ }
     
-    def initialize(owner, options, &block)
+    def initialize(owner, options, args, &block)
       @owner = owner
-      @target = options[:to]      
+      @target = options[:to]
+      @args = args
       
       # Adorn with user-provided proxy methods
       [options[:extend]].flatten.each { |ext| proxy_extend(ext) } if options[:extend]
@@ -23,7 +24,15 @@ module Roxy
       
     def proxy_owner; @owner; end
     def proxy_target
-      @proxy_target_object ||= @target.is_a?(Proc) ? @target.call(@owner) : @target
+      @proxy_target_object ||=
+        if @target.is_a?(Proc)
+          @target.call(@owner)
+        elsif @target.is_a?(UnboundMethod)
+          bound_method = @target.bind(proxy_owner)
+          bound_method.arity == 0 ? bound_method.call : bound_method.call(*@args)
+        else
+          @target
+        end
     end
   
     # Delegate all method calls we don't know about to target object

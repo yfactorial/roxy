@@ -48,7 +48,10 @@ describe "Roxy" do
     @person.ancestors(true, false).women.should == ['m_ancestor2']
     @person.ancestors(false, true).men.should == ['p_ancestor1']
     @person.ancestors(false, true).women.should == ['p_ancestor2']
-    @person.ancestors(true, true).men.should == ['p_ancestor1', 'm_ancestor1']
-    @person.ancestors.women.should == ['p_ancestor2', 'm_ancestor2']
+    @person.ancestors(true, true).men.sort.should == ['p_ancestor1', 'm_ancestor1'].sort
+  end
+  
+  it "should retain default argument values when calling a proxied method with arguments" do
+    @person.ancestors.women.sort.should == ['p_ancestor2', 'm_ancestor2'].sort
   end
 end

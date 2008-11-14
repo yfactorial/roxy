@@ -1,4 +1,4 @@
-class Person
+class FamilyPerson
   
   include Roxy::Moxie
   
@@ -28,10 +28,23 @@ class Person
     def step
       proxy_target.select { |child| proxy_owner.last != child.last }
     end    
-  end    
+  end
   
   def initialize(first, last)
     @first, @last = first, last
+  end
+  
+  def ancestors(reload = false)
+    1.upto(4).to_a.collect { |i| "#{reload ? 'r' : ''}ancestor#{i}" }      
+  end
+  
+  proxy :ancestors do
+    def men
+      proxy_target.select { |a| a.include?('1') || a.include?('3') }
+    end
+    def women
+      proxy_target - men
+    end
   end
   
   def to_s; "#{first} #{last}"; end
