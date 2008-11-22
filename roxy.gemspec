@@ -1,8 +1,8 @@
 Gem::Specification.new do |s|
   
   s.name     = "roxy"
-  s.version  = "0.2"
-  s.date     = "2008-11-14"
+  s.version  = "0.2.1"
+  s.date     = "2008-11-22"
   
   s.summary  = "A Ruby library for quickly creating proxy objects."
   s.email    = "ryan@yfactorial.com"
