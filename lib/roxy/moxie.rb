@@ -24,37 +24,19 @@ module Roxy
           options[:to] = original_method
         end
         
-        roxy_proxy_methods[name] = [options, block]
-        
-        # If we have a no-arg method we're proxying, or if we're not
-        # proxying an existing method at all, we can do a basic def
-        # and memoize the proxy
+        # Thanks to Jerry for this simplification of my original class_eval approach
+        # http://ryandaigle.com/articles/2008/11/10/implement-ruby-proxy-objects-with-roxy/comments/8059#comment-8059
         if !original_method or original_method.arity == 0
-          class_eval <<-EOS, __FILE__, __LINE__
-            def #{name}
-              @#{name}_proxy ||= Proxy.new(self, self.class.roxy_proxy_methods[:#{name}][0],
-                                                 nil,
-                                                 &self.class.roxy_proxy_methods[:#{name}][1])
-            end
-          EOS
-          
-        # If we have a proxied method with arguments, we need to
-        # retain them
+          define_method name do
+            (@proxy_for ||= {})[name] ||= Proxy.new(self, options, nil, &block)
+          end
         else
-          class_eval <<-EOS, __FILE__, __LINE__
-            def #{name}(*args)
-              Proxy.new(self, self.class.roxy_proxy_methods[:#{name}][0],
-                              args,
-                              &self.class.roxy_proxy_methods[:#{name}][1])
-            end
-          EOS
-                              
-        end        
+          define_method name do |*args|
+            Proxy.new(self, options, args, &block)
+          end
+        end      
       end
-            
-      def roxy_proxy_methods
-        @roxy_proxy_methods ||= {}
-      end
+      
     end
   end
 end
